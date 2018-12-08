@@ -13,6 +13,25 @@ server.route({
     }
 });
 
+server.route({
+    method: "GET",
+    path: "/api/tasks",
+    handler: function(request, h) {
+        return [
+            {
+                id: 1,
+                name: "Take out the trash",
+                frequency: "Weekly"
+            },
+            {
+                id: 2,
+                name: "Dishes",
+                frequency: "Daily"
+            }
+        ]
+    }
+})
+
 const init = async () => {
     await server.register(require('inert'));
     await server.start();

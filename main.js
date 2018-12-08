@@ -1,30 +1,22 @@
 window.addEventListener("load", function() {
-
-    const initialTaskList = [
-        {
-            id: 1,
-            name: "Take out the trash",
-            frequency: "Weekly"
-        },
-        {
-            id: 2,
-            name: "Dishes",
-            frequency: "Daily"
-        }
-    ];
-
     const table = document.getElementById("myTaskTable");
 
     function loadTable() {
-        initialTaskList.forEach(function(task) {
-            const row = table.insertRow();
-            const cell1 = row.insertCell();
-            cell1.innerText = task.id;
-            const cell2 = row.insertCell();
-            cell2.innerText = task.name;
-            const cell3 = row.insertCell();
-            cell3.innerText = task.frequency;
-        });
+        fetch('http://localhost:3000/api/tasks')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(taskList) {
+                taskList.forEach(function(task) {
+                    const row = table.insertRow();
+                    const cell1 = row.insertCell();
+                    cell1.innerText = task.id;
+                    const cell2 = row.insertCell();
+                    cell2.innerText = task.name;
+                    const cell3 = row.insertCell();
+                    cell3.innerText = task.frequency;
+                });
+            });
     }
 
     loadTable();
