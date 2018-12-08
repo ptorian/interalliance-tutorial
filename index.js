@@ -13,24 +13,36 @@ server.route({
     }
 });
 
+const tasks = [
+    {
+        id: 1,
+        name: "Take out the trash",
+        frequency: "Weekly"
+    },
+    {
+        id: 2,
+        name: "Dishes",
+        frequency: "Daily"
+    }
+];
+
 server.route({
     method: "GET",
     path: "/api/tasks",
     handler: function(request, h) {
-        return [
-            {
-                id: 1,
-                name: "Take out the trash",
-                frequency: "Weekly"
-            },
-            {
-                id: 2,
-                name: "Dishes",
-                frequency: "Daily"
-            }
-        ]
+        return tasks;
     }
-})
+});
+
+server.route({
+    method: "POST",
+    path: "/api/tasks",
+    handler: function(request, h) {
+        const newTask = JSON.parse(request.payload);
+        tasks.push(newTask);
+        return newTask;
+    }
+});
 
 const init = async () => {
     await server.register(require('inert'));

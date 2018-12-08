@@ -45,5 +45,13 @@ window.addEventListener("load", function() {
         const cell3 = row.insertCell();
         cell3.innerText = newTaskFrequency;
 
+        const newTask = {
+            id: newTaskID,
+            name: newTaskName,
+            frequency: newTaskFrequency
+        };
+
+
+        fetch("http://localhost:3000/api/tasks", {method: "POST", body: JSON.stringify(newTask)});
     });
 });
